@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Formulario de Acceso</title>
+    <link rel="stylesheet" type="text/css" href="estilos.css">
+</head>
+
+<body>
+    <div class="box">
+        <input type="email" class="input is-primary is-large" placeholder="Introduce tu correo" id="email-input" />
+        <input type="text" class="input is-primary is-large" placeholder="Introduce tu nombre" id="name-input" />
+        <input type="text" class="input is-primary is-large" placeholder="Introduce tus apellidos" id="surname-input" />
+        <input type="number" class="input is-primary is-large" placeholder="Introduce tu edad" id="age-input" />
+        <button class="button is-primary is-large is-fullwidth" id="submit-btn"> Enviar </button>
+    </div>
+
+    <script>
+        const emailInput = document.querySelector('#email-input');
+        const nameInput = document.querySelector('#name-input');
+        const surnameInput = document.querySelector('#surname-input');
+        const ageInput = document.querySelector('#age-input');
+        const submitButton = document.querySelector('#submit-btn');
+
+        submitButton.addEventListener('click', () => {
+            const email = emailInput.value;
+            const name = nameInput.value;
+            const surname = surnameInput.value;
+            const age = parseInt(ageInput.value);
+
+            let message = document.createElement('h1');
+            message.classList.add('box');
+            message.id = 'greeting';
+
+            // Validación de correo electrónico
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                message.innerHTML = 'Por favor, introduce un correo electrónico válido.';
+                document.body.appendChild(message);
+                return;
+            }
+
+            // Validación de nombre y apellidos
+            if (!name || !surname) {
+                message.innerHTML = 'Por favor, introduce tu nombre y apellidos.';
+                document.body.appendChild(message);
+                return;
+            }
+
+            if (age >= 18) {
+                message.innerHTML = `Acceso concedido, ${name} ${surname}`;
+            } else {
+                message.innerHTML = `Acceso denegado. Debes ser mayor de 18 años.`;
+            }
+
+            document.body.appendChild(message);
+        });
+    </script>
+</body>
+
+</html>
